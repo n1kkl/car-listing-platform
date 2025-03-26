@@ -14,7 +14,8 @@
     "node-localstorage": "^3.0.5",
     "oidc-client-ts": "^3.2.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@repo/shared-types": "workspace:*"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

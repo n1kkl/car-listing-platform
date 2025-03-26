@@ -113,6 +113,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@repo/shared-types':
+        specifier: workspace:*
+        version: link:../../packages/shared-types
       ky:
         specifier: ^1.7.5
         version: 1.7.5
@@ -162,6 +165,8 @@ importers:
       typescript:
         specifier: ^5
         version: 5.8.2
+
+  packages/shared-types: {}
 
 packages:
 

@@ -17,8 +17,3 @@ export const userManager = new UserManager({
         })
       : undefined,
 });
-
-userManager.events.addAccessTokenExpiring(() => {
-  // TODO: refresh token
-  console.warn('Access token expiring. Not implemented yet.');
-});
