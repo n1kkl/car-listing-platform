@@ -1,0 +1,15 @@
+{
+  "name": "car-listing-platform",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A car listing platform",
+  "scripts": {
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "dev": "turbo dev"
+  },
+  "keywords": [],
+  "author": "n1kkl <niklas@nikkl.me>",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@10.6.5"
+}
