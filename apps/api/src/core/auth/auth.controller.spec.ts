@@ -3,7 +3,7 @@ import { Context } from '../../common/global/context';
 import { Role } from '@repo/shared-types';
 import { Test } from '@nestjs/testing';
 
-describe('AuthoController', () => {
+describe('AuthController', () => {
   let controller: AuthController;
   let mockCtx: Context;
 
