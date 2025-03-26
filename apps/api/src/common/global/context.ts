@@ -1,4 +1,4 @@
-import { AuthUser } from '../../core/auth/auth.types';
+import { AuthUser } from '../../core/auth/auth-user';
 
 type ContextParams = {
   user?: AuthUser;
