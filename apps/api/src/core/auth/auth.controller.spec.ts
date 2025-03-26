@@ -5,23 +5,25 @@ import { Test } from '@nestjs/testing';
 
 describe('AuthoController', () => {
   let controller: AuthController;
-  const mockCtx = new Context({
-    user: {
-      scope: 'openid profile email',
-      roles: [Role.USER],
-      name: 'John Doe',
-      preferred_username: 'johndoe',
-      given_name: 'John',
-      family_name: 'Doe',
-      email: 'john.doe@example.com',
-      email_verified: true,
-    },
-  });
+  let mockCtx: Context;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       controllers: [AuthController],
     }).compile();
+
+    mockCtx = new Context({
+      user: {
+        scope: 'openid profile email',
+        roles: [Role.USER],
+        name: 'John Doe',
+        preferred_username: 'johndoe',
+        given_name: 'John',
+        family_name: 'Doe',
+        email: 'john.doe@example.com',
+        email_verified: true,
+      },
+    });
 
     controller = module.get(AuthController);
   });
