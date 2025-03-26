@@ -1,5 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
-import { AuthenticatedUser, Resource, Scopes } from 'nest-keycloak-connect';
+import { Resource, Scopes } from 'nest-keycloak-connect';
+import { Ctx } from '../../common/global/decorators/ctx.decorator';
+import { Context } from '../../common/global/context';
 import { AuthUser } from './auth.types';
 
 @Controller('auth')
@@ -7,7 +9,7 @@ import { AuthUser } from './auth.types';
 export class AuthController {
   @Get('me')
   @Scopes('profile')
-  me(@AuthenticatedUser() user: AuthUser): any {
-    return user;
+  me(@Ctx() ctx: Context): AuthUser {
+    return ctx.user!;
   }
 }
