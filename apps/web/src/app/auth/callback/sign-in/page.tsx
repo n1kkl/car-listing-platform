@@ -10,7 +10,7 @@ export default function AuthCallback() {
   useEffect(() => {
     userManager
       .signinCallback(window.location.href)
-      .then(() => router.push('/'))
+      .then(() => router.push('/dashboard'))
       .catch((e) => {
         console.error('Failed to sign in', e);
         void router.push('/');

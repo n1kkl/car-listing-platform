@@ -2,9 +2,10 @@ import { useUser } from '@/lib/auth';
 import { Role } from '@repo/shared-types';
 import { useEffect, useState } from 'react';
 
-export function useRoles(): { roles: Role[]; isLoaded: boolean } {
-  const { user, isLoaded } = useUser();
+export function useRoles(): { roles: Role[]; isLoading: boolean } {
+  const { user, isLoading: isUserLoading } = useUser();
   const [roles, setRoles] = useState<Role[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   function loadRoles(): void {
     if (!user) {
@@ -47,7 +48,8 @@ export function useRoles(): { roles: Role[]; isLoaded: boolean } {
 
   useEffect(() => {
     loadRoles();
-  }, [user]);
+    setIsLoading(isUserLoading);
+  }, [user, isUserLoading]);
 
-  return { roles, isLoaded };
+  return { roles, isLoading };
 }
