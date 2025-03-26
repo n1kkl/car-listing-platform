@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "CLP",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
