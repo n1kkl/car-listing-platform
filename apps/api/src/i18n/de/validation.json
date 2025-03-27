@@ -1,0 +1,33 @@
+{
+  "limits": {
+    "max": "{field} muss kleiner oder gleich {limit} sein",
+    "min": "{field} muss größer oder gleich {limit} sein"
+  },
+  "length": {
+    "base": "{field} muss genau {limit} Zeichen lang sein",
+    "max": "{field} darf höchstens {limit} Zeichen lang sein",
+    "min": "{field} muss mindestens {limit} Zeichen lang sein"
+  },
+  "pattern": {
+    "base": "{field} mit dem Wert {value} entspricht nicht dem benötigten Muster: {pattern}"
+  },
+  "required": "{field} ist erforderlich",
+  "empty": "{field} darf nicht leer sein",
+  "type": {
+    "base": "{field} muss ein {type} sein",
+    "email": "{field} muss eine gültige E-Mail-Adresse sein",
+    "url": "{field} muss eine gültige URL sein",
+    "hex": "{field} muss ein gültiger Hexadezimalwert sein",
+    "alphanum": "{field} darf nur Buchstaben und Zahlen enthalten",
+    "string": "{field} muss eine Zeichenkette sein",
+    "number": "{field} muss eine Zahl sein",
+    "integer": "{field} muss eine ganze Zahl sein",
+    "boolean": "{field} muss ein boolescher Wert sein (wahr/falsch)",
+    "object": "{field} muss ein Objekt sein",
+    "array": "{field} muss eine Liste sein",
+    "date": "{field} muss ein Datum sein",
+    "isoDate": "{field} muss ein gültiges ISO-8601-Datum sein",
+    "timestamp": "{field} muss ein Zeitstempel oder eine Zahl sein",
+    "float": "{field} muss eine Kommazahl sein"
+  }
+}
