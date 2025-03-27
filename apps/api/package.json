@@ -27,6 +27,7 @@
     "@repo/shared-types": "workspace:*",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "helmet": "^8.1.0",
     "keycloak-connect": "^26.1.1",
     "nest-keycloak-connect": "^1.10.1",
     "nestjs-i18n": "^10.5.1",
