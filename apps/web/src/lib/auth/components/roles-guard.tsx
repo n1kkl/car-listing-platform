@@ -19,7 +19,6 @@ export function RolesGuard({
   const [isAllowed, setIsAllowed] = useState(false);
 
   useEffect(() => {
-    console.log(roles, isLoading);
     if (isLoading) {
       return;
     }

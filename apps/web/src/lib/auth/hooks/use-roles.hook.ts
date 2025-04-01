@@ -16,7 +16,7 @@ export function useRoles(): { roles: Role[]; isLoading: boolean } {
     if (!('roles' in user.profile) || !Array.isArray(user.profile.roles)) {
       console.warn(
         'User profile does not contain valid roles array',
-        user.profile.roles,
+        user.profile,
       );
       setRoles([]);
       return;
@@ -34,7 +34,7 @@ export function useRoles(): { roles: Role[]; isLoading: boolean } {
       },
       [[], []] as [Role[], string[]],
     );
-    if (invalidRoles.length) {
+    if (invalidRoles.length && process.env.NODE_ENV === 'development') {
       console.warn(
         'User profile contains unknown roles',
         invalidRoles,
