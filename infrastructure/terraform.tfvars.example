@@ -1,0 +1,3 @@
+keycloak_client_id = "admin-cli"
+keycloak_client_secret = "DfNKkVLoFD5pJWi2xNuhfQw4pyj229kY"
+keycloak_url = "http://localhost:7080"
