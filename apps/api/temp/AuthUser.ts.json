@@ -1,0 +1,1 @@
+{"data":{"_id":2000,"properties":{},"primaryKeys":[],"filters":{},"hooks":{},"indexes":[],"uniques":[],"className":"AuthUser","abstract":true,"internal":true,"constructorParams":[],"toJsonParams":[],"useCache":true,"path":"./src/core/auth/auth-user.entity.ts"},"origin":"./src/core/auth/auth-user.entity.ts","hash":"2e11a67bd5157f0a30eead93322855b7","version":"6.4.11"}

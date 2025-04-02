@@ -3,7 +3,7 @@ import { Entity, EntityRepositoryType, Property } from '@mikro-orm/core';
 import { ProfileRepository } from './profile.repository';
 
 @Entity({ repository: () => ProfileRepository })
-export class ProfileEntity extends BaseEntity {
+export class Profile extends BaseEntity {
   constructor() {
     super({ idPrefix: 'pfl' });
   }
@@ -11,14 +11,8 @@ export class ProfileEntity extends BaseEntity {
   [EntityRepositoryType]?: ProfileRepository;
 
   @Property()
-  firstName: string;
+  displayName: string;
 
-  @Property()
-  lastName: string;
-
-  @Property()
-  email: string;
-
-  @Property()
-  username: string;
+  @Property({ hidden: true })
+  keycloakId: string;
 }

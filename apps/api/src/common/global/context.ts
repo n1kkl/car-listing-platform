@@ -1,33 +1,28 @@
-import { AuthUser } from '../../core/auth/auth-user';
-import { I18nContext } from 'nestjs-i18n';
-import { i18nService } from '../../main';
+import { AuthUser } from '../../core/auth/auth-user.entity';
 
 type ContextParams = {
   user?: AuthUser;
-  i18n?: I18nContext;
+  lang?: string;
 };
 
 export class Context {
   private readonly _user?: AuthUser;
-  private readonly _i18n: I18nContext;
+  private readonly _lang: string;
 
   constructor(params: ContextParams) {
     this._user = params.user;
-    this._i18n =
-      params.i18n ||
-      I18nContext.current() ||
-      new I18nContext('en', i18nService);
+    this._lang = params.lang;
   }
 
   get user(): AuthUser | undefined {
     return this._user;
   }
 
-  get i18n(): I18nContext {
-    return this._i18n;
+  get lang(): string {
+    return this._lang;
   }
 }
 
 export const SYSTEM_CTX = new Context({
-  i18n: I18nContext.current() || new I18nContext('en', i18nService),
+  lang: 'en',
 });

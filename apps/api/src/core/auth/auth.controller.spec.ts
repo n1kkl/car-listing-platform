@@ -14,6 +14,7 @@ describe('AuthController', () => {
 
     mockCtx = new Context({
       user: {
+        sub: '1234567890',
         scope: 'openid profile email',
         roles: [Role.USER],
         name: 'John Doe',

@@ -3,6 +3,7 @@ import { Exclude, Expose } from 'class-transformer';
 
 @Exclude()
 export class AuthUser {
+  sub: string;
   @Expose()
   scope: string;
   @Expose()

@@ -4,6 +4,8 @@ import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { I18nService } from 'nestjs-i18n';
 import helmet from 'helmet';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { version } from '../package.json';
 
 export let i18nService: I18nService;
 
@@ -12,6 +14,14 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   i18nService = app.get(I18nService);
+
+  const config = new DocumentBuilder()
+    .setTitle('CLP API')
+    .setVersion(version)
+    .build();
+
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, documentFactory);
 
   app.use(helmet()); // must be first middleware, see https://docs.nestjs.com/security/helmet
   app.setGlobalPrefix(configService.get('APP_PREFIX') || 'api');

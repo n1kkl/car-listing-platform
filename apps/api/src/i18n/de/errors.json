@@ -1,0 +1,9 @@
+{
+  "entity": {
+    "notFound": "{entity} konnte nicht gefunden werden"
+  },
+  "profile": {
+    "alreadyExists": "Du hast bereits ein Profil",
+    "forbidden": "Du hast keine Berechtigung, dieses Profil zu bearbeiten"
+  }
+}

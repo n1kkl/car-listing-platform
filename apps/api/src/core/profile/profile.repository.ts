@@ -1,4 +1,4 @@
 import { EntityRepository } from '@mikro-orm/postgresql';
-import { ProfileEntity } from './profile.entity';
+import { Profile } from './profile.entity';
 
-export class ProfileRepository extends EntityRepository<ProfileEntity> {}
+export class ProfileRepository extends EntityRepository<Profile> {}

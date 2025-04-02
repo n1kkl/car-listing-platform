@@ -1,0 +1,9 @@
+{
+  "entity": {
+    "notFound": "{entity} not found"
+  },
+  "profile": {
+    "alreadyExists": "You already have a profile",
+    "forbidden": "You are not allowed to edit this profile"
+  }
+}

@@ -7,6 +7,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard, ResourceGuard, RoleGuard } from 'nest-keycloak-connect';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { DatabaseModule } from './common/database/database.module';
+import { ProfileModule } from './core/profile/profile.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { DatabaseModule } from './common/database/database.module';
     GlobalModule,
     DatabaseModule,
     AuthModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [
