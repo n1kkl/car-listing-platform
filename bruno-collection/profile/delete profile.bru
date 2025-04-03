@@ -1,0 +1,17 @@
+meta {
+  name: delete profile
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{base}}/profile
+  body: none
+  auth: inherit
+}
+
+body:json {
+  {
+    "displayName": "Niklass"
+  }
+}

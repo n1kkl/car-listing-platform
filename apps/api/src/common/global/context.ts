@@ -1,4 +1,5 @@
 import { AuthUser } from '../../core/auth/auth-user.entity';
+import { ForbiddenException } from '@nestjs/common';
 
 type ContextParams = {
   user?: AuthUser;
@@ -20,6 +21,13 @@ export class Context {
 
   get lang(): string {
     return this._lang;
+  }
+
+  getUserOrThrow(): AuthUser {
+    if (!this._user) {
+      throw new ForbiddenException();
+    }
+    return this._user;
   }
 }
 

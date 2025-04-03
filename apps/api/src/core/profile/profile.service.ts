@@ -1,6 +1,5 @@
 import {
   BadRequestException,
-  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -9,8 +8,8 @@ import { Profile } from './profile.entity';
 import { ProfileRepository } from './profile.repository';
 import { EntityManager, FilterQuery } from '@mikro-orm/postgresql';
 import { Context } from '../../common/global/context';
-import { I18nService } from 'nestjs-i18n';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { I18nService } from '../../common/global/services/i18n.service';
 
 @Injectable()
 export class ProfileService {
@@ -20,46 +19,41 @@ export class ProfileService {
     private readonly i18n: I18nService,
   ) {}
 
+  async currentOrFail(ctx: Context): Promise<Profile> {
+    if (!ctx.user) {
+      throw new BadRequestException(this.i18n.t('errors.user.notFound'));
+    }
+
+    return this.retrieve(this.getContextQuery(ctx), ctx);
+  }
+
   async retrieve(query: FilterQuery<Profile>, ctx: Context): Promise<Profile> {
-    return this.profileRepository.findOneOrFail(query, {
-      failHandler: () =>
-        new NotFoundException(
-          this.i18n.t('errors.entity.notFound', {
-            lang: ctx.lang,
-            args: { entity: 'User' },
-          }),
-        ),
-      populate: [],
-    });
+    return this.profileRepository.findOneOrFail(
+      this.getContextQuery(ctx, query),
+      {
+        failHandler: () =>
+          new NotFoundException(this.i18n.t('errors.profile.notFound')),
+      },
+    );
   }
 
   async create(
     createProfileDto: CreateProfileDto,
     ctx: Context,
   ): Promise<Profile> {
-    if (!ctx.user) {
-      throw new BadRequestException(
-        this.i18n.t('errors.entity.notFound', {
-          lang: ctx.lang,
-          args: { entity: 'User' },
-        }),
-      );
-    }
-
-    const existing = await this.profileRepository.findOne({
-      keycloakId: ctx.user.sub,
-    });
+    const user = ctx.getUserOrThrow();
+    const existing = await this.profileRepository.findOne(
+      this.getContextQuery(ctx),
+    );
     if (existing) {
       throw new BadRequestException(
-        this.i18n.t('errors.profile.alreadyExists', {
-          lang: ctx.lang,
-        }),
+        this.i18n.t('errors.profile.alreadyExists'),
       );
     }
 
     const profile = this.profileRepository.create({
       ...createProfileDto,
-      keycloakId: ctx.user.sub,
+      keycloakId: user.sub,
     });
 
     await this.em.persistAndFlush(profile);
@@ -74,13 +68,6 @@ export class ProfileService {
     ctx: Context,
   ): Promise<Profile> {
     const profile = await this.retrieve(query, ctx);
-    if (profile.keycloakId !== ctx.user?.sub) {
-      throw new ForbiddenException(
-        this.i18n.t('errors.profile.forbidden', {
-          lang: ctx.lang,
-        }),
-      );
-    }
 
     this.profileRepository.assign(profile, updateProfileDto);
     await this.em.persistAndFlush(profile);
@@ -91,16 +78,20 @@ export class ProfileService {
 
   async delete(query: FilterQuery<Profile>, ctx: Context): Promise<Profile> {
     const profile = await this.retrieve(query, ctx);
-    if (profile.keycloakId !== ctx.user?.sub) {
-      throw new ForbiddenException(
-        this.i18n.t('errors.profile.forbidden', {
-          lang: ctx.lang,
-        }),
-      );
-    }
-
     await this.em.removeAndFlush(profile);
 
     return profile;
+  }
+
+  getContextQuery(
+    ctx: Context,
+    query: FilterQuery<Profile> = {},
+  ): FilterQuery<Profile> {
+    if (!ctx.user) {
+      throw new BadRequestException(this.i18n.t('errors.user.notFound'));
+    }
+    query['keycloakId'] = ctx.user.sub;
+
+    return query;
   }
 }

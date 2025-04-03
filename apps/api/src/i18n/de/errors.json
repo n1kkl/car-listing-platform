@@ -3,7 +3,11 @@
     "notFound": "{entity} konnte nicht gefunden werden"
   },
   "profile": {
+    "notFound": "Profil nicht gefunden",
     "alreadyExists": "Du hast bereits ein Profil",
     "forbidden": "Du hast keine Berechtigung, dieses Profil zu bearbeiten"
+  },
+  "user": {
+    "notFound": "Benutzer nicht gefunden"
   }
 }

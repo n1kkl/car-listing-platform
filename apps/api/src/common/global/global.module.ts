@@ -7,6 +7,9 @@ import {
   QueryResolver,
 } from 'nestjs-i18n';
 import * as path from 'node:path';
+import { ContextProvider } from './providers/context.provider';
+import { Context } from './context';
+import { I18nService } from './services/i18n.service';
 
 @Global()
 @Module({
@@ -32,6 +35,7 @@ import * as path from 'node:path';
       ],
     }),
   ],
-  exports: [ConfigModule],
+  providers: [ContextProvider, I18nService],
+  exports: [ConfigModule, Context, I18nService],
 })
 export class GlobalModule {}

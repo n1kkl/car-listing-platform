@@ -3,7 +3,11 @@
     "notFound": "{entity} not found"
   },
   "profile": {
+    "notFound": "Profile not found",
     "alreadyExists": "You already have a profile",
     "forbidden": "You are not allowed to edit this profile"
+  },
+  "user": {
+    "notFound": "User not found"
   }
 }

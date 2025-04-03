@@ -1,0 +1,17 @@
+meta {
+  name: create profile
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base}}/profile
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "displayName": "Niklas"
+  }
+}
