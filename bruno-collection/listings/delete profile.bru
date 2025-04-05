@@ -1,0 +1,21 @@
+meta {
+  name: delete profile
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{base}}/listings/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: lst_xo624nrxiz8gfbuv3tqamzlo
+}
+
+body:json {
+  {
+    "displayName": "Niklass"
+  }
+}

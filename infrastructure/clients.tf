@@ -36,7 +36,8 @@ resource "keycloak_openid_client" "frontend-app" {
   access_type = "PUBLIC"
   root_url    = "http://localhost:3001"
   valid_redirect_uris = [
-    "http://localhost:3001/*"
+    "http://localhost:3001/*",
+    "http://localhost:3000/*"
   ]
   web_origins = [
     "+"

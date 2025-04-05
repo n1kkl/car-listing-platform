@@ -1,6 +1,6 @@
 {
   "entity": {
-    "notFound": "{entity} not found"
+    "notFound": "Could not be found"
   },
   "profile": {
     "notFound": "Profile not found",
@@ -9,5 +9,8 @@
   },
   "user": {
     "notFound": "User not found"
+  },
+  "action": {
+    "forbidden": "You are not allowed to perform this action"
   }
 }

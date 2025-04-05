@@ -1,0 +1,20 @@
+meta {
+  name: create listing
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{base}}/listings
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "isDraft": true,
+    "title": "BMW M3 E30 Sport Evolution 2",
+    "description": "The BMW M3 E30 Sport Evolution is a limited edition of the E30 M3, produced in 1990. It features a more powerful engine and a lightweight design, making it a true performance car.",
+    "price": 7170000
+  }
+}

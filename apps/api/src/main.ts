@@ -12,12 +12,34 @@ export let i18nService: I18nService;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
+  const appUrl =
+    configService.get<string>('APP_URL') || 'http://localhost:3000';
 
   i18nService = app.get(I18nService);
 
   const config = new DocumentBuilder()
     .setTitle('CLP API')
     .setVersion(version)
+    .addServer(appUrl, 'default')
+    .addOAuth2(
+      {
+        type: 'oauth2',
+        name: 'keycloak',
+        flows: {
+          authorizationCode: {
+            authorizationUrl: configService.get<string>('KEYCLOAK_AUTH_URL'),
+            tokenUrl: configService.get<string>('KEYCLOAK_TOKEN_URL'),
+            refreshUrl: configService.get<string>('KEYCLOAK_TOKEN_URL'),
+            scopes: {
+              openid: 'openid',
+              profile: 'profile',
+              email: 'email',
+            },
+          },
+        },
+      },
+      'JWT',
+    )
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);

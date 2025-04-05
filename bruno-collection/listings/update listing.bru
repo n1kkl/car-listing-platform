@@ -1,0 +1,21 @@
+meta {
+  name: update listing
+  type: http
+  seq: 3
+}
+
+patch {
+  url: {{base}}/listings/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: lst_gz5f55brma1uwb1w612d10p9
+}
+
+body:json {
+  {
+    "price": 7170000
+  }
+}

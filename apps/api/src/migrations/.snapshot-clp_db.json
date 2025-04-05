@@ -36,8 +36,8 @@
           "length": 6,
           "mappedType": "datetime"
         },
-        "first_name": {
-          "name": "first_name",
+        "display_name": {
+          "name": "display_name",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -46,28 +46,8 @@
           "length": 255,
           "mappedType": "string"
         },
-        "last_name": {
-          "name": "last_name",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 255,
-          "mappedType": "string"
-        },
-        "email": {
-          "name": "email",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 255,
-          "mappedType": "string"
-        },
-        "username": {
-          "name": "username",
+        "keycloak_id": {
+          "name": "keycloak_id",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -77,11 +57,11 @@
           "mappedType": "string"
         }
       },
-      "name": "profile_entity",
+      "name": "profile",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "profile_entity_pkey",
+          "keyName": "profile_pkey",
           "columnNames": [
             "id"
           ],
@@ -93,6 +73,116 @@
       ],
       "checks": [],
       "foreignKeys": {},
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "is_draft": {
+          "name": "is_draft",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "boolean"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "text"
+        },
+        "price": {
+          "name": "price",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "integer"
+        }
+      },
+      "name": "listing",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "listing_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "listing_owner_id_foreign": {
+          "constraintName": "listing_owner_id_foreign",
+          "columnNames": [
+            "owner_id"
+          ],
+          "localTableName": "public.listing",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.profile",
+          "updateRule": "cascade"
+        }
+      },
       "nativeEnums": {}
     }
   ],

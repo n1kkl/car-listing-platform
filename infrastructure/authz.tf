@@ -46,6 +46,18 @@ resource "keycloak_openid_client_authorization_resource" "profile" {
   ]
 }
 
+resource "keycloak_openid_client_authorization_resource" "listing" {
+  name               = "listing"
+  display_name       = "listing"
+  realm_id           = keycloak_realm.clp_master.id
+  resource_server_id = keycloak_openid_client.backend-api.resource_server_id
+  scopes = [
+    keycloak_openid_client_authorization_scope.read.name,
+    keycloak_openid_client_authorization_scope.write.name,
+    keycloak_openid_client_authorization_scope.delete.name,
+  ]
+}
+
 resource "keycloak_openid_client_role_policy" "role-policy-user" {
   name               = "role_policy_user"
   realm_id           = keycloak_realm.clp_master.id
@@ -86,6 +98,24 @@ resource "keycloak_openid_client_authorization_permission" "permission-profile-u
   scopes = [
     keycloak_openid_client_authorization_scope.write.name,
     keycloak_openid_client_authorization_scope.read.name
+  ]
+  policies = [
+    keycloak_openid_client_role_policy.role-policy-user.name
+  ]
+}
+
+resource "keycloak_openid_client_authorization_permission" "permission-listing-user" {
+  name               = "permission_listing_user"
+  realm_id           = keycloak_realm.clp_master.id
+  resource_server_id = keycloak_openid_client.backend-api.resource_server_id
+  resources = [
+    keycloak_openid_client_authorization_resource.listing.name
+  ]
+  type = "scope"
+  scopes = [
+    keycloak_openid_client_authorization_scope.write.name,
+    keycloak_openid_client_authorization_scope.read.name,
+    keycloak_openid_client_authorization_scope.delete.name
   ]
   policies = [
     keycloak_openid_client_role_policy.role-policy-user.name

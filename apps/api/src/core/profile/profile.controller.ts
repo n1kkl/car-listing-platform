@@ -1,11 +1,17 @@
 import { Body, Controller, Delete, Get, Patch, Post } from '@nestjs/common';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOAuth2,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { Ctx } from '../../common/global/decorators/ctx.decorator';
 import { Context } from '../../common/global/context';
 import { ProfileService } from './profile.service';
 import { Resource, Scopes } from 'nest-keycloak-connect';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { Profile } from './profile.entity';
 
 @Controller('profile')
 @Resource('profile')
@@ -14,13 +20,18 @@ export class ProfileController {
 
   @Get()
   @ApiBearerAuth()
+  @ApiOAuth2(['profile:read'])
+  @ApiResponse({ type: () => Profile })
   @Scopes('read')
   async current(@Ctx() ctx: Context) {
-    return this.profileService.currentOrFail(ctx);
+    return this.profileService.current(ctx);
   }
 
   @Post()
   @ApiBearerAuth()
+  @ApiOAuth2(['profile:write'])
+  @ApiBody({ type: CreateProfileDto })
+  @ApiResponse({ type: () => Profile })
   @Scopes('write')
   async create(
     @Body() createProfileDto: CreateProfileDto,
@@ -31,13 +42,16 @@ export class ProfileController {
 
   @Patch()
   @ApiBearerAuth()
+  @ApiOAuth2(['profile:write'])
+  @ApiBody({ type: UpdateProfileDto })
+  @ApiResponse({ type: () => Profile })
   @Scopes('write')
   async update(
     @Body() updateProfileDto: UpdateProfileDto,
     @Ctx() ctx: Context,
   ) {
     return this.profileService.update(
-      this.profileService.getContextQuery(ctx),
+      { keycloakId: ctx.user?.sub },
       updateProfileDto,
       ctx,
     );
@@ -45,11 +59,10 @@ export class ProfileController {
 
   @Delete()
   @ApiBearerAuth()
+  @ApiOAuth2(['profile:delete'])
+  @ApiResponse({ type: () => Profile })
   @Scopes('delete')
   async delete(@Ctx() ctx: Context) {
-    return this.profileService.delete(
-      this.profileService.getContextQuery(ctx),
-      ctx,
-    );
+    return this.profileService.delete({ keycloakId: ctx.user?.sub }, ctx);
   }
 }
